@@ -1,33 +1,12 @@
-import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import React from 'react';
 import MapView from 'react-native-maps';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
 
-interface State {
-}
-class Test extends Component<any, State> {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-
-        }
-    }
-
-
-
-    render () {
-        const { height } = Dimensions.get('window');
-
+export default class App extends React.Component {
+    render() {
         return (
-            <View style={ [ styles.container, { height } ] }>
-                <MapView
-                    initialRegion={{
-                        latitude: 37.78825,
-                        longitude: -122.4324,
-                        latitudeDelta: 0.0922,
-                        longitudeDelta: 0.0421,
-                    }}
-                />
+            <View style={styles.container}>
+                <MapView style={styles.mapStyle} />
             </View>
         );
     }
@@ -35,7 +14,13 @@ class Test extends Component<any, State> {
 
 const styles = StyleSheet.create({
     container: {
-    }
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    mapStyle: {
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height,
+    },
 });
-
-export default Test;

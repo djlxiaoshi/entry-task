@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
-
+import { View, StyleSheet } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Text } from 'react-native-elements';
 interface Props {
     content: string
 }
@@ -35,16 +35,26 @@ class Description extends Component<Props, State> {
                     { content }
                 </Text>
 
-                {/*<LinearGradient>*/}
                 {
                     showAll ? null :
-                        <View style={ styles.masking }>
+                        <LinearGradient
+                            colors={[
+                                'rgba(250, 249, 252, 0)',
+                                'rgba(250, 249, 252, 0.7)',
+                                'rgba(250, 249, 252, 1)'
+                            ]}
+                            style={{
+                                position: 'absolute',
+                                left: 0,
+                                right: 0,
+                                bottom: 0,
+                                height: 40,
+                            }}
+                        >
                             <Text onPress={ this.viewAll } style={ styles.button }>VIEW ALL</Text>
-                        </View>
+
+                        </LinearGradient>
                 }
-
-                {/*</LinearGradient>*/}
-
 
             </View>
         );

@@ -8,7 +8,7 @@ import LoginPage from './page/Login';
 import HomePage from './page/Home';
 import UserPage from './page/User';
 import DetailsPage from './page/Details';
-import TestPage from './page/Test/Carousel';
+import TestPage from './page/Test/Map';
 
 class App extends Component {
 
@@ -18,7 +18,6 @@ class App extends Component {
 
 
   componentDidMount () {
-        console.log(11)
   }
 
   render () {
@@ -27,7 +26,7 @@ class App extends Component {
       return (
           <Provider store={store}>
               <NavigationContainer>
-                  <Stack.Navigator initialRouteName='Details'>
+                  <Stack.Navigator initialRouteName='Test'>
                       <Stack.Screen
                           name="Login"
                           component={LoginPage}

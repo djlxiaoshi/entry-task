@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import { Text } from 'react-native-elements';
+import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 
 interface Props {
     goingMembers: any[];
@@ -8,53 +9,103 @@ interface Props {
 }
 
 interface State {
-    showMoreGoingMembers: boolean
+    showMoreGoingMembers: boolean;
+    showMoreLikeMembers: boolean;
 }
-class Participants extends Component<Props> {
-    
+class Participants extends Component<Props, State> {
+
+    constructor(props) {
+        super(props);
+        this.state= {
+            showMoreGoingMembers: false,
+            showMoreLikeMembers: false
+        };
+    }
+
+    showAllGoingMembers = () => {
+        const { showMoreGoingMembers } = this.state;
+        this.setState({
+            showMoreGoingMembers: !showMoreGoingMembers
+        })
+    };
+
+    showAllLikeMembers = () => {
+        const { showMoreLikeMembers } = this.state;
+        this.setState({
+            showMoreLikeMembers: !showMoreLikeMembers
+        })
+    };
+
     render () {
         const { goingMembers, likeMembers } = this.props;
+        const { showMoreGoingMembers, showMoreLikeMembers } = this.state;
         const minNumber = 7;
-        const showMoreGoingMembers = goingMembers.length > minNumber;
-        const showMoreLikeMembers = likeMembers.length > minNumber;
-        const partialGoingMembers = goingMembers.slice(0, minNumber);
-        const partialLikeMembers = likeMembers.slice(0, minNumber);
+        const showMoreGoingMembersButton = goingMembers.length > minNumber;
+        const showMoreLikeMembersButton = likeMembers.length > minNumber;
+        const partialGoingMembers = showMoreGoingMembers ? goingMembers.slice() : goingMembers.slice(0, minNumber);
+        const partialLikeMembers = showMoreLikeMembers ? likeMembers.slice() : likeMembers.slice(0, minNumber);
         return (
             <View style={ styles.container }>
                 <View style={ styles.goingWrap }>
+                    <AntDesignIcon
+                        onPress={ this.showAllGoingMembers }
+                        name={'check'}
+                        size={ 15 }
+                        color={'#AC8EC9'}/>
                     <Text style={ styles.text }>{ goingMembers.length } going</Text>
                     <View style={ [styles.memberWrap, {
-                        justifyContent: showMoreGoingMembers ? 'space-around': 'flex-start'
                     }] }>
                         {
                             partialGoingMembers.map((member, index) => (
-                                <Image
-                                    key={ index }
-                                    style={ styles.avatar }
-                                    source={ require('../images/gmap.png') }
-                                />
+                                <View style={ styles.member } key={index}>
+                                    <Image
+                                        key={ index }
+                                        style={ styles.avatar }
+                                        source={ require('../images/gmap.png') }
+                                    />
+                                </View>
                             ))
                         }
                     </View>
                     {
-                        showMoreGoingMembers ? <View style={ styles.showAll } /> : null
+                        showMoreGoingMembersButton && !showMoreGoingMembers ?
+                            <AntDesignIcon
+                                onPress={ this.showAllGoingMembers }
+                                name={'downcircleo'}
+                                size={ 24 }
+                                color={'#AC8EC9'}/>
+                            : null
                     }
                 </View>
 
                 <View style={ styles.likesWrap }>
+                    <AntDesignIcon
+                        onPress={ this.showAllGoingMembers }
+                        name={'hearto'}
+                        size={ 13 }
+                        color={'#AC8EC9'}/>
                     <Text style={ styles.text }>{ likeMembers.length } likes</Text>
                     <View style={ styles.memberWrap }>
                         {
                             partialLikeMembers.map((member, index) => (
-                                <Image
-                                    key={ index }
-                                    style={ styles.avatar }
-                                    source={ require('../images/gmap.png') }/>
+                                <View style={ styles.member } key={index}>
+                                    <Image
+                                        key={ index }
+                                        style={ styles.avatar }
+                                        source={ require('../images/gmap.png') }/>
+                                </View>
+
                             ))
                         }
                     </View>
                     {
-                        showMoreLikeMembers ? <View style={ styles.showAll } /> : null
+                        showMoreLikeMembersButton && !showMoreLikeMembers ?
+                            <AntDesignIcon
+                                onPress={ this.showAllLikeMembers }
+                                name={'downcircleo'}
+                                size={ 24 }
+                                color={'#AC8EC9'}/>
+                            : null
                     }
 
                 </View>
@@ -77,7 +128,7 @@ const styles = StyleSheet.create({
     goingWrap: {
         flex: 1,
         flexDirection: 'row',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         paddingTop: 12.5,
         paddingBottom: 12.5,
         borderBottomWidth: 1,
@@ -86,34 +137,31 @@ const styles = StyleSheet.create({
     likesWrap: {
         flex: 1,
         flexDirection: 'row',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         paddingTop: 12.5,
         paddingBottom: 12.5
     },
     text: {
+        marginLeft: 6,
         fontSize:12,
         color: '#67616D'
     },
     memberWrap: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'flex-start',
+        flexWrap: 'wrap',
         marginLeft: 13.5,
-        overflow: 'hidden'
+    },
+    member: {
+        width: '14%',
+        alignItems: 'center',
+        marginBottom: 12
     },
     avatar: {
         width: 24,
         height: 24,
-        marginLeft: 3.5,
-        marginRight: 3.5,
         borderRadius: 12
-    },
-    showAll: {
-        width: 24,
-        height: 24,
-        marginLeft: 3.5,
-        borderRadius: 12,
-        backgroundColor: 'red'
     }
 });
 

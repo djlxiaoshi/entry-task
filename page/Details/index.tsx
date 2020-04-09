@@ -50,8 +50,27 @@ const participantsData = {
         { avatar: '' },
         { avatar: '' },
     ],
-    likeMembers: []
+    likeMembers: [
+        { avatar: '' },
+        { avatar: '' },
+        { avatar: '' },
+        { avatar: '' }
+    ]
 };
+
+const ListData = [
+    {username: 'Devin', commentTime: '14 May 2016 - 14 May 2016', content: 'Nullam ut tincidunt nunc. Petus lacus, commodo eget justo ut, rutrum varius nunc.' },
+    {username: 'Little Prince', commentTime: '14 May 2016 - 14 May 2016', content: 'Nullam ut tincidunt nunc. Petus lacus, commodo eget justo ut, rutrum varius nunc.' },
+    {username: 'Little Prince2', commentTime: '14 May 2016 - 14 May 2016', content: 'Nullam ut tincidunt nunc. Petus lacus, commodo eget justo ut, rutrum varius nunc.' },
+    {username: 'Little Prince3', commentTime: '14 May 2016 - 14 May 2016', content: 'Nullam ut tincidunt nunc. Petus lacus, commodo eget justo ut, rutrum varius nunc.' },
+    {username: 'Little Prince4', commentTime: '14 May 2016 - 14 May 2016', content: 'Nullam ut tincidunt nunc. Petus lacus, commodo eget justo ut, rutrum varius nunc.' }
+];
+
+const bottomBarData = {
+    like: true,
+    going: true
+};
+
 class Details extends Component {
     render () {
         const { height } = Dimensions.get('window');
@@ -69,8 +88,8 @@ class Details extends Component {
                     <Time { ...timeData }/>
                     <Position { ...positionData }/>
                     <Participants { ...participantsData }/>
-                    <Comment />
-                    <BottomBar />
+                    <Comment data={ ListData }/>
+                    <BottomBar { ...bottomBarData } />
                 </ScrollView>
             </View>
         );
