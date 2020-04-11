@@ -8,7 +8,7 @@ import LoginPage from './page/Login';
 import HomePage from './page/Home';
 import UserPage from './page/User';
 import DetailsPage from './page/Details';
-import TestPage from './page/Test/Map';
+import TestPage from './page/Test/SVG';
 
 class App extends Component {
 
@@ -57,6 +57,9 @@ class App extends Component {
                       />
                       <Stack.Screen
                           name="Test"
+                          options={{
+                            header: () => null
+                          }}
                           component={TestPage}
                       />
                   </Stack.Navigator>

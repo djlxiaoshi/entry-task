@@ -1,12 +1,22 @@
 import React from 'react';
-import MapView from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 
 export default class App extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <MapView style={styles.mapStyle} />
+                <MapView style={styles.mapStyle}>
+                    <Marker coordinate={{
+                        latitude: 37.78825,
+                        longitude: -122.4324
+                    }}>
+                        <View style={{backgroundColor: "red", padding: 10}}>
+                            <Text>SF</Text>
+                        </View>
+                    </Marker>
+                    </MapView>
+                    
             </View>
         );
     }
@@ -21,6 +31,6 @@ const styles = StyleSheet.create({
     },
     mapStyle: {
         width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height,
+        height: 100,
     },
 });
